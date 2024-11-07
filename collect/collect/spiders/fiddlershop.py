@@ -8,4 +8,8 @@ class FiddlershopSpider(scrapy.Spider):
 
     def parse(self, response):
         products = response.css('div.product-item__info  ')
+
+        for product in products:
+
+            'name' = response.css('a.product-item-meta__title::text').get()
         
