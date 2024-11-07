@@ -10,4 +10,10 @@ class FiddlershopSpider(scrapy.Spider):
         products = response.css("div.product-item-meta")
 
         for product in products:
-            yield {"name": product.css("a.product-item-meta__title::text").get()}
+            yield {
+                "name": product.css("a.product-item-meta__title::text").get(),
+                "price": product.css("span.price::text").getall()[-1].strip(),
+                "data_rating": product.css(
+                    "span.stamped-badge-caption::attr(data-rating)"
+                ).get(),
+            }
