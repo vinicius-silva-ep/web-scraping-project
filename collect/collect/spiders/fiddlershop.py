@@ -7,9 +7,7 @@ class FiddlershopSpider(scrapy.Spider):
     start_urls = ["https://fiddlershop.com/collections/violins"]
 
     def parse(self, response):
-        products = response.css('div.product-item__info  ')
+        products = response.css("div.product-item-meta")
 
         for product in products:
-
-            'name' = response.css('a.product-item-meta__title::text').get()
-        
+            yield {"name": product.css("a.product-item-meta__title::text").get()}
