@@ -3,8 +3,11 @@ import scrapy
 
 class VioninsSpider(scrapy.Spider):
     name = "violins"
-    allowed_domains = ["violins.com."]
+    allowed_domains = ["violins.com.au"]
+    head_url = "https://www.violins.com.au"
     start_urls = ["https://www.violins.com.au/collections/beginner-violins"]
+    page_count = 1
+    max_pages = 10
 
     def parse(self, response):
         products = response.css("div.productitem")
@@ -29,3 +32,12 @@ class VioninsSpider(scrapy.Spider):
                 .strip(),
                 "image": product.css("img.productitem--image-primary").attrib["src"],
             }
+
+        next_page = response.css("li.pagination--next a::attr(href)").get()
+
+        if self.page_count < self.max_pages:
+            next_page = self.head_url + next_page
+            if next_page:
+                self.page_count += 1
+                yield scrapy.Request(url=next_page, callback=self.parse)
+                print(next_page)
