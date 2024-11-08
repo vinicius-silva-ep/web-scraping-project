@@ -1,7 +1,7 @@
 import scrapy
 
 
-class VioninsSpider(scrapy.Spider):
+class ViolinSpider(scrapy.Spider):
     name = "violins"
     allowed_domains = ["violins.com.au"]
     head_url = "https://www.violins.com.au"
