@@ -1,5 +1,7 @@
 import sys
 import os
+import pandas as pd
+from datetime import datetime
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../../src")))
 
@@ -12,11 +14,20 @@ def run_spider():
 
     process = CrawlerProcess(get_project_settings())
 
-    # Setting the output
-    process.settings.set("FEED_FORMAT", "json")  # JSON format
-    process.settings.set("FEED_URI", "../../data/data.json")  # Path for saving the data
-
     # Starts spider
+    spider = ViolinSpider()
     process.crawl(ViolinSpider)
 
     process.start()
+
+    # After the collect process, creates a dataframe
+    data = spider.collected_data
+    df = pd.DataFrame(data)
+    df["date"] = datetime.now().strftime(
+        "%Y-%m-%d %H:%M:%S"
+    )  # Date format by ISO 8601 compatible with PostgreSQL
+    print(df)
+    return df
+
+
+run_spider()
