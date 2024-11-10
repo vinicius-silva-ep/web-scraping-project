@@ -6,6 +6,6 @@ COPY requirements.txt .
 
 RUN pip install --no-cache-dir -r requirements.txt
 
-COPY src/ /app/src/
+COPY  src/ /app
 
-CMD ["python", "/app/src/collect/run_spyder.py"]
+CMD ["python", "collect/run_spider.py"]

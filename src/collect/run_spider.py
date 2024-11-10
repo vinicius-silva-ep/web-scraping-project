@@ -3,7 +3,7 @@ import os
 import pandas as pd
 from datetime import datetime
 
-sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "../../src")))
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
 from scrapy.crawler import CrawlerProcess
 from scrapy.utils.project import get_project_settings
