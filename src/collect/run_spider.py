@@ -30,4 +30,6 @@ def run_spider():
     return df
 
 
-run_spider()
+# Tests
+if __name__ == "__main__":
+    df = run_spider()
