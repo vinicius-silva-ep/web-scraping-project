@@ -1,7 +1,6 @@
 import sys
 import os
 import pandas as pd
-from datetime import datetime
 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), "..")))
 
@@ -20,16 +19,7 @@ def run_spider():
 
     process.start()
 
-    # After the collect process, creates a dataframe
+    # After the collect process, it creates a dataframe
     data = spider.collected_data
-    df = pd.DataFrame(data)
-    df["date"] = datetime.now().strftime(
-        "%Y-%m-%d %H:%M:%S"
-    )  # Date format by ISO 8601 compatible with PostgreSQL
-    print(df)
-    return df
 
-
-# Tests
-if __name__ == "__main__":
-    df = run_spider()
+    return data

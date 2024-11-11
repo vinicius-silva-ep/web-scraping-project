@@ -11,6 +11,7 @@ class ViolinSpider(scrapy.Spider):
         "https://www.violins.com.au/collections/advanced-violins",
         "https://www.violins.com.au/collections/professional-violins",
         "https://www.violins.com.au/collections/electric-violins",
+        "https://www.violins.com.au/collections/ex-rental-violins",
         "https://www.violins.com.au/collections/second-hand-violins",
     ]
     max_pages = 10
@@ -37,7 +38,9 @@ class ViolinSpider(scrapy.Spider):
                 "name": product.css("h2.productitem--title a::text")
                 .get(default="")
                 .strip(),
-                "price": product.css("span.money::text").get(default="").strip(),
+                "price": product.css("div.price__current span.money::text")
+                .get(default="")
+                .strip(),
                 "average_rating": product.css("div.jdgm-prev-badge").attrib.get(
                     "data-average-rating", None
                 ),
